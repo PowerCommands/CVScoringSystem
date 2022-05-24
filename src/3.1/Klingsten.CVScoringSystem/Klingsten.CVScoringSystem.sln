@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32421.90
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Klingsten.CVScoringSystem.Shared", "Klingsten.CVScoringSystem.Shared\Klingsten.CVScoringSystem.Shared.csproj", "{3B9C5335-7CBD-40C2-94B4-7EA8DFD55A78}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Klingsten.CVscoringSystem.WebClient", "Klingsten.CVscoringSystem.WebClient\Klingsten.CVscoringSystem.WebClient.csproj", "{61F7E2A4-9144-4578-AC48-BFC2A07F6493}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3B9C5335-7CBD-40C2-94B4-7EA8DFD55A78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B9C5335-7CBD-40C2-94B4-7EA8DFD55A78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B9C5335-7CBD-40C2-94B4-7EA8DFD55A78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B9C5335-7CBD-40C2-94B4-7EA8DFD55A78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61F7E2A4-9144-4578-AC48-BFC2A07F6493}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61F7E2A4-9144-4578-AC48-BFC2A07F6493}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61F7E2A4-9144-4578-AC48-BFC2A07F6493}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61F7E2A4-9144-4578-AC48-BFC2A07F6493}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CB253862-FEAC-4A56-80AC-B40BDF7DAC54}
+	EndGlobalSection
+EndGlobal
