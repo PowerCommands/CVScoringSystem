@@ -13,7 +13,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Components\" />
+	  <UpToDateCheckInput Remove="Components\Metric\CvsScoreCard.razor" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <_ContentIncludedByDefault Remove="Components\Metric\CvsScoreCard.razor" />
 	</ItemGroup>
 	
 	
