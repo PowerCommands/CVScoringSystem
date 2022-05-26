@@ -1,0 +1,18 @@
+﻿@inject IScorecardService ScorecardService
+
+<h3>Attack vector (AV)</h3>
+<div>
+    <MudChipSet @bind-SelectedChip="_selected" Filter="true" Mandatory="true">
+        @foreach (var metricVariable in Metric.Variables)
+        {
+            <MudChip Text="grey" Color="Color.Default" SelectedColor="Color.Success">@metricVariable.Name (@metricVariable.Vector)</MudChip>
+        }
+    </MudChipSet>
+</div>
+
+@code {
+    MudChip? _selected;
+
+    [Parameter]
+    public Metric Metric { get; set; } = new();
+}

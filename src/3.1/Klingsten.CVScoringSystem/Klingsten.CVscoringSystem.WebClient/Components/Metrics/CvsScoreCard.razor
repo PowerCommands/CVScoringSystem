@@ -1,0 +1,51 @@
+﻿@inject IScorecardService ScorecardService
+
+<MudGrid >
+    <MudItem xl="12">
+        <MudToolBar Style="@($"background-color:{_theme.Palette.Primary }; color:{_theme.Palette.AppbarText }")">
+            <MudText>@Name</MudText>
+            <MudSpacer/>
+            @if (_completed)
+            {
+                <MudChip Text="Score" Color="Color.Error">5.3</MudChip>
+            }
+        </MudToolBar>
+    </MudItem>
+    @foreach (var metric in _metrics)
+    {
+        <MudItem xl="12">
+            <MudText GutterBottom="true">@metric.Descricption</MudText>
+            <CvsMetrics Metric="metric"></CvsMetrics>
+        </MudItem>
+    }
+    <MudItem xl="12">
+        <MudToolBar Style="@($"background-color:{_theme.Palette.Success }; color:{_theme.Palette.AppbarText }")">
+            @if (_completed)
+            {
+                <MudText>Vector string:</MudText>
+                <MudText>@Name</MudText>
+            }
+        </MudToolBar>
+    </MudItem>
+</MudGrid>
+
+@code {
+
+    MudChip? _selected;
+    MudTheme _theme = new MudTheme();
+    bool _completed;
+    IEnumerable<Metric> _metrics = new List<Metric>();
+
+    [Parameter]
+    public string Name { get; set; } = "";
+
+    public double Score { get; set; }
+    public string VectorString { get; set; } = "";
+
+
+    protected override void OnInitialized()
+    {
+        _metrics = ScorecardService.GetMetrics();
+        StateHasChanged();
+    }
+}
