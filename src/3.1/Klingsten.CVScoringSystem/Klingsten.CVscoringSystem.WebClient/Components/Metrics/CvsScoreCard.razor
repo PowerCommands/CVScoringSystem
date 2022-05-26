@@ -13,8 +13,17 @@
     </MudItem>
     @foreach (var metric in _metrics)
     {
-        <MudItem xl="12">
-            <MudText GutterBottom="true">@metric.Descricption</MudText>
+        <MudItem xl="6">
+            <MudExpansionPanels MultiExpansion="true">
+                <MudExpansionPanel MaxHeight="6000">
+                    <TitleContent>
+                        <h3>@metric.Name (@metric.Vector) Description</h3>
+                    </TitleContent>
+                    <ChildContent>
+                        <MudText GutterBottom="true">@metric.Descricption</MudText>
+                    </ChildContent>
+                </MudExpansionPanel>
+            </MudExpansionPanels>
             <CvsMetrics Metric="metric"></CvsMetrics>
         </MudItem>
     }
