@@ -1,0 +1,25 @@
+﻿
+<MudPaper Elevation="5">
+    <MudChipSet @bind-SelectedChip="_selected" Filter="true" Mandatory="true">
+        @foreach (var metricVariable in Metric.Variables)
+        {
+            <MudChip Text="grey" Color="Color.Default" SelectedColor="Color.Success" Style="margin-left: 18px" @onmouseover="() => ShowDescription(metricVariable)">@metricVariable.Name (@metricVariable.Vector)</MudChip>
+        }
+    </MudChipSet>
+    <MudText Style="margin-left: 20px">@((MarkupString)$"{_guidance}")</MudText>
+</MudPaper>
+
+@code {
+    MudChip? _selected;
+    string _guidance = "";
+
+    [Parameter]
+    public Metric Metric { get; set; } = new();
+
+    protected override void OnInitialized()
+    {
+        _guidance = Metric.Guidance;
+    }
+
+    private void ShowDescription(MetricVariable metricVariable) => _guidance = $"<p><b>{metricVariable.Name}:</b> {metricVariable.Descricption}</p><br/><p>{Metric.Guidance}</p>";
+}

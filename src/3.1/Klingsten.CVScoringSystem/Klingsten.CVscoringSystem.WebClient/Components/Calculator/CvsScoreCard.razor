@@ -1,9 +1,7 @@
-﻿@inject IScorecardService ScorecardService
-
-<MudGrid >
+﻿<MudGrid >
     <MudItem xl="12">
         <MudToolBar Style="@($"background-color:{_theme.Palette.Primary }; color:{_theme.Palette.AppbarText }")">
-            <MudText>@Name</MudText>
+            <MudText>@ScoreCard?.Name</MudText>
             <MudSpacer/>
             @if (_completed)
             {
@@ -17,10 +15,10 @@
             <MudExpansionPanels MultiExpansion="true">
                 <MudExpansionPanel MaxHeight="6000">
                     <TitleContent>
-                        <h3>@metric.Name (@metric.Vector) Description</h3>
+                        <h3 >@metric.Name (@metric.Vector) Description</h3>
                     </TitleContent>
                     <ChildContent>
-                        <MudText GutterBottom="true">@metric.Descricption</MudText>
+                        <MudText GutterBottom="true">@((MarkupString)$"{@metric.Descricption}")</MudText>
                     </ChildContent>
                 </MudExpansionPanel>
             </MudExpansionPanels>
@@ -32,7 +30,7 @@
             @if (_completed)
             {
                 <MudText>Vector string:</MudText>
-                <MudText>@Name</MudText>
+                <MudText>@ScoreCard.Name</MudText>
             }
         </MudToolBar>
     </MudItem>
@@ -46,7 +44,7 @@
     IEnumerable<Metric> _metrics = new List<Metric>();
 
     [Parameter]
-    public string Name { get; set; } = "";
+    public ScoreCard ScoreCard { get; set; }
 
     public double Score { get; set; }
     public string VectorString { get; set; } = "";
@@ -54,7 +52,7 @@
 
     protected override void OnInitialized()
     {
-        _metrics = ScorecardService.GetMetrics();
+        _metrics = ScoreCard.Metrics;
         StateHasChanged();
     }
 }

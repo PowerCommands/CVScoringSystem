@@ -1,8 +1,9 @@
 ﻿namespace Klingsten.CVScoringSystem.Shared.Enums;
 
-public enum MetricType
+public enum ScoreMetricType
 {
     Base,
     Temporal,
-    Environmental
+    Environmental,
+    Modified
 }

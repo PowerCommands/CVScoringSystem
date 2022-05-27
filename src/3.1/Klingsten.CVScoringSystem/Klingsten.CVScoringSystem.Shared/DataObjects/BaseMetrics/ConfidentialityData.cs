@@ -1,6 +1,6 @@
 ﻿using Klingsten.CVScoringSystem.Shared.DomainObjects;
 
-namespace Klingsten.CVScoringSystem.Shared.DataObjects;
+namespace Klingsten.CVScoringSystem.Shared.DataObjects.BaseMetrics;
 
 public class ConfidentialityData
 {

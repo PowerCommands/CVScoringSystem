@@ -1,7 +1,4 @@
-﻿using Klingsten.CVScoringSystem.Shared.Enums;
-
-namespace Klingsten.CVScoringSystem.Shared.DomainObjects;
-
+﻿namespace Klingsten.CVScoringSystem.Shared.DomainObjects;
 public class Metric
 {
     public string Name { get; set; } = "";

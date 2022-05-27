@@ -13,11 +13,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <UpToDateCheckInput Remove="Components\Metrics\CvsScoreCard.razor" />
+	  <UpToDateCheckInput Remove="Components\Calculator\CvsScoreCard.razor" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <_ContentIncludedByDefault Remove="Components\Metrics\CvsScoreCard.razor" />
+	  <_ContentIncludedByDefault Remove="Components\Calculator\CvsCalculator.razor" />
+	  <_ContentIncludedByDefault Remove="Components\Calculator\CvsScoreCard.razor" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -26,6 +27,10 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Klingsten.CVScoringSystem.Shared\Klingsten.CVScoringSystem.Shared.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <UpToDateCheckInput Remove="Components\Calculator\CvsCalculator.razor" />
 	</ItemGroup>
 	
 	

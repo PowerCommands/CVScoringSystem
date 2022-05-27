@@ -4,5 +4,5 @@ namespace Klingsten.CVScoringSystem.Shared.Contracts;
 
 public interface IScorecardService
 {
-    IEnumerable<Metric> GetMetrics();
+    IEnumerable<ScoreCard> GetScoreCards();
 }
