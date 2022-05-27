@@ -8,6 +8,7 @@ public class AvailabilityRequirementData
     {
         var metric = ConfidentialityRequirementData.Get();
         metric.Name = "Availability Requirement";
+        metric.Order = 2;
         metric.Vector = "AR";
         return metric;
     }

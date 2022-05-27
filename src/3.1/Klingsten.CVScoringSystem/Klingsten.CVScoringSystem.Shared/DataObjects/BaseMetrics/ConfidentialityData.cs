@@ -15,6 +15,7 @@ public class ConfidentialityData
         var metric = new Metric
         {
             Name = "Confidentiality",
+            Order = 5,
             Vector = "C",
             Descricption = "This metric measures the impact to the confidentiality of the information resources managed by a software component due to a successfully exploited vulnerability. Confidentiality refers to limiting information access and disclosure to only authorized users, as well as preventing access by, or disclosure to, unauthorized ones. The Base Score is greatest when the loss to the impacted component is highest.",
             Guidance = "",

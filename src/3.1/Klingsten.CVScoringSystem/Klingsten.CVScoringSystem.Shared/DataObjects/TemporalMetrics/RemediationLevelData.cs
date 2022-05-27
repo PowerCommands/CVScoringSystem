@@ -17,6 +17,7 @@ public class RemediationLevelData
         var metric = new Metric
         {
             Name = "Remediation Level",
+            Order = 1,
             Vector = "RL",
             Descricption = "The Remediation Level of a vulnerability is an important factor for prioritization. The typical vulnerability is unpatched when initially published. Workarounds or hotfixes may offer interim remediation until an official patch or upgrade is issued. Each of these respective stages adjusts the Temporal Score downwards, reflecting the decreasing urgency as remediation becomes final. The less official and permanent a fix, the higher the vulnerability score.",
             Guidance = "",

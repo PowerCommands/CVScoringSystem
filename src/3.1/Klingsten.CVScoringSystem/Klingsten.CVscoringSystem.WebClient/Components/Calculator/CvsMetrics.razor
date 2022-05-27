@@ -3,7 +3,7 @@
     <MudChipSet @bind-SelectedChip="_selected" Filter="true" Mandatory="true">
         @foreach (var metricVariable in Metric.Variables)
         {
-            <MudChip Text="grey" Color="Color.Default" SelectedColor="Color.Success" Style="margin-left: 18px" @onmouseover="() => ShowDescription(metricVariable)">@metricVariable.Name (@metricVariable.Vector)</MudChip>
+            <MudChip Text="grey" Color="Color.Default" SelectedColor="Color.Success" Style="margin-left: 18px" @onmouseover="() => ShowDescription(metricVariable)" @onclick="() => OnMetricClick(metricVariable)">@metricVariable.Name (@metricVariable.Vector)</MudChip>
         }
     </MudChipSet>
     <MudText Style="margin-left: 20px">@((MarkupString)$"{_guidance}")</MudText>
@@ -16,10 +16,16 @@
     [Parameter]
     public Metric Metric { get; set; } = new();
 
-    protected override void OnInitialized()
-    {
-        _guidance = Metric.Guidance;
-    }
+    [Parameter] 
+    public EventCallback<Metric> OnMetricValueSet { get; set; }
+
+    protected override void OnInitialized() => _guidance = Metric.Guidance;
 
     private void ShowDescription(MetricVariable metricVariable) => _guidance = $"<p><b>{metricVariable.Name}:</b> {metricVariable.Descricption}</p><br/><p>{Metric.Guidance}</p>";
+    private void OnMetricClick(MetricVariable metricVariable)
+    {
+        Metric.Value = metricVariable.Vector;
+        OnMetricValueSet.InvokeAsync(Metric);
+    }
+
 }

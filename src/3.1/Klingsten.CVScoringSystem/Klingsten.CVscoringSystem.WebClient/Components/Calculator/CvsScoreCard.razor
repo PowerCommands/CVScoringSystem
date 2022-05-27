@@ -1,4 +1,4 @@
-﻿<MudGrid >
+﻿<MudGrid>
     <MudItem xl="12">
         <MudToolBar Style="@($"background-color:{_theme.Palette.Primary }; color:{_theme.Palette.AppbarText }")">
             <MudText>@ScoreCard?.Name</MudText>
@@ -22,15 +22,14 @@
                     </ChildContent>
                 </MudExpansionPanel>
             </MudExpansionPanels>
-            <CvsMetrics Metric="metric"></CvsMetrics>
+            <CvsMetrics Metric="metric" OnMetricValueSet="OnMetricScoreSet"></CvsMetrics>
         </MudItem>
     }
     <MudItem xl="12">
-        <MudToolBar Style="@($"background-color:{_theme.Palette.Success }; color:{_theme.Palette.AppbarText }")">
+        <MudToolBar Style="@($"background-color:{_theme.Palette.Primary }; color:{_theme.Palette.AppbarText }")">
             @if (_completed)
             {
-                <MudText>Vector string:</MudText>
-                <MudText>@ScoreCard.Name</MudText>
+                <MudText>Vector string: @VectorString</MudText>
             }
         </MudToolBar>
     </MudItem>
@@ -39,12 +38,15 @@
 @code {
 
     MudChip? _selected;
-    MudTheme _theme = new MudTheme();
+    MudTheme _theme = new();
     bool _completed;
+    int _completedCount;
     IEnumerable<Metric> _metrics = new List<Metric>();
 
     [Parameter]
-    public ScoreCard ScoreCard { get; set; }
+    public ScoreCard ScoreCard { get; set; } = null!;
+    [Parameter] 
+    public EventCallback<ScoreCard> OnScoreCardCompleted { get; set; }
 
     public double Score { get; set; }
     public string VectorString { get; set; } = "";
@@ -53,6 +55,18 @@
     protected override void OnInitialized()
     {
         _metrics = ScoreCard.Metrics;
+        StateHasChanged();
+    }
+
+    private void OnMetricScoreSet(Metric metric)
+    {
+        _completedCount++;
+        if (_completedCount <= _metrics.Count() - 1) return;
+        var vectorStringArray = _metrics.Select(m => m.ToVectoryStringValue()).ToArray();
+        VectorString = string.Join('/', vectorStringArray);
+        ScoreCard.VectorString = VectorString;
+        OnScoreCardCompleted.InvokeAsync(ScoreCard);
+        _completed = true;
         StateHasChanged();
     }
 }

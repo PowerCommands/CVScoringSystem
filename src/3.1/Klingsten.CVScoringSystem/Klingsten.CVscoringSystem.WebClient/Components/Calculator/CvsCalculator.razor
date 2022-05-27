@@ -1,15 +1,39 @@
-﻿@inject IScorecardService ScorecardService
+﻿@using Klingsten.CVScoringSystem.Shared.Models
+@inject IScorecardService ScorecardService
 <h3>Common Vulnerability Scoring System - Calculator</h3>
 <MudImage Src="images/cvss_web.png" Alt="CVSS logo" Elevation="25" Class="rounded-lg ma-4"/>
-<CvsScoreCard @ref="_cvsScoreCard" ScoreCard="_baseScoreCard"></CvsScoreCard>
+
+<MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6" Border="true">
+    <MudTabPanel Text="Base score">
+        <CvsScoreCard @ref="_cvsBaseScoreCard" ScoreCard="_baseScoreCard"></CvsScoreCard>
+    </MudTabPanel>
+    <MudTabPanel Text="Temporal score">
+        <CvsScoreCard @ref="_cvsTemporalScoreCard" ScoreCard="_temporalScoreCard"></CvsScoreCard>
+    </MudTabPanel>
+    <MudTabPanel Text="Environment">
+        <CvsScoreCard @ref="_cvsEnvironmentScoreCard" ScoreCard="_environmentScoreCard"></CvsScoreCard>
+    </MudTabPanel>
+</MudTabs>
+
 @code {
-    CvsScoreCard? _cvsScoreCard;
+
+    SurveyModel _survey = new();
+
+    CvsScoreCard? _cvsBaseScoreCard;
     ScoreCard? _baseScoreCard;
+
+    CvsScoreCard? _cvsTemporalScoreCard;
+    ScoreCard? _temporalScoreCard;
+
+    CvsScoreCard? _cvsEnvironmentScoreCard;
+    ScoreCard? _environmentScoreCard;
 
     protected override void OnInitialized()
     {
         var scoreCards = ScorecardService.GetScoreCards();
         _baseScoreCard = scoreCards.Single(s => s.MetricType == ScoreMetricType.Base);
+        _temporalScoreCard = scoreCards.Single(s => s.MetricType == ScoreMetricType.Temporal);
+        _environmentScoreCard = scoreCards.Single(s => s.MetricType == ScoreMetricType.Environmental);
         StateHasChanged();
     }
 }

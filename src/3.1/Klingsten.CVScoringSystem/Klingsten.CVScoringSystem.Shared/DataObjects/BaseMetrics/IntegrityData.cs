@@ -15,6 +15,7 @@ public class IntegrityData
         var metric = new Metric
         {
             Name = "Integrity",
+            Order = 6,
             Vector = "I",
             Descricption = "This metric measures the impact to integrity of a successfully exploited vulnerability. Integrity refers to the trustworthiness and veracity of information. The Base Score is greatest when the consequence to the impacted component is highest.",
             Guidance = "",

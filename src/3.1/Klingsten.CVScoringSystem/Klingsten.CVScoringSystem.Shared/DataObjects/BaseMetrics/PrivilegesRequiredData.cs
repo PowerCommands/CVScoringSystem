@@ -15,6 +15,7 @@ public class PrivilegesRequiredData
         var metric = new Metric
         {
             Name = "Privileges Required",
+            Order = 3,
             Vector = "PR",
             Descricption = "This metric describes the level of privileges an attacker must possess before successfully exploiting the vulnerability. The Base Score is greatest if no privileges are required.",
             Guidance = "Privileges Required is usually None for hard-coded credential vulnerabilities or vulnerabilities requiring social engineering (e.g., reflected cross-site scripting, cross-site request forgery, or file parsing vulnerability in a PDF reader).",

@@ -8,6 +8,7 @@ public class IntegrityRequirementData
     {
         var metric = ConfidentialityRequirementData.Get();
         metric.Name = "Integrity Requirement";
+        metric.Order = 1;
         metric.Vector = "IR";
         return metric;
     }
