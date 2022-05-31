@@ -1,4 +1,6 @@
-﻿
+﻿@inject IEventService EventService
+@inject IStateService StateService
+
 <MudPaper Elevation="5">
     <MudChipSet @bind-SelectedChip="_selected" Filter="true" Mandatory="true">
         @foreach (var metricVariable in Metric.Variables)
@@ -12,6 +14,7 @@
 @code {
     MudChip? _selected;
     string _guidance = "";
+    bool _showDescription = false;
 
     [Parameter]
     public Metric Metric { get; set; } = new();
@@ -19,9 +22,17 @@
     [Parameter] 
     public EventCallback<Metric> OnMetricValueSet { get; set; }
 
-    protected override void OnInitialized() => _guidance = Metric.Guidance;
+    protected override void OnInitialized()
+    {        
+        EventService.UserPreferencesChanged += preferences =>
+        {
+            _showDescription = preferences.ShowMetricDecription;
+            StateHasChanged();
+        };
+    }
 
-    private void ShowDescription(MetricVariable metricVariable) => _guidance = $"<p><b>{metricVariable.Name}:</b> {metricVariable.Descricption}</p><br/><p>{Metric.Guidance}</p>";
+    private void ShowDescription(MetricVariable metricVariable) => _guidance = _showDescription ? $"<p><b>{metricVariable.Name}:</b> {metricVariable.Descricption}</p><br/><p>{Metric.Guidance}</p>" : "";
+
     private void OnMetricClick(MetricVariable metricVariable)
     {
         Metric.Value = metricVariable.Vector;

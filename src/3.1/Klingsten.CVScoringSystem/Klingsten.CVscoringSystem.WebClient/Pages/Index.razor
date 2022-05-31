@@ -1,4 +1,7 @@
 ﻿@page "/"
+@inject IStateService StateService
+@inject IPreferencesService PreferencesService
+
 
 <PageTitle>@ClientConfiguration.Name @ClientConfiguration.Version</PageTitle>
 <MudGrid>
@@ -6,3 +9,13 @@
         <CvsCalculator></CvsCalculator>
     </MudItem>
 </MudGrid>
+
+@code {
+    protected override async void OnInitialized()
+    {
+        await PreferencesService.Initialize().ContinueWith(_ =>
+        {
+            StateService.PreferencesChanged(StateService.Preferences);
+        });
+    }
+}

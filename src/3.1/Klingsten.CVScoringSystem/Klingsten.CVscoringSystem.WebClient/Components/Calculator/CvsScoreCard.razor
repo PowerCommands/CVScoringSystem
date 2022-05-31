@@ -1,5 +1,5 @@
 ﻿<MudGrid>
-    <MudItem xl="12">
+    <MudItem xl="12" lg="12" xs="12" xxl="12" md="12" sm="12">
         <MudToolBar Style="@($"background-color:{_theme.Palette.Primary }; color:{_theme.Palette.AppbarText }")">
             <MudText>@ScoreCard?.Name</MudText>
             <MudSpacer/>
@@ -25,7 +25,7 @@
             <CvsMetrics Metric="metric" OnMetricValueSet="OnMetricScoreSet"></CvsMetrics>
         </MudItem>
     }
-    <MudItem xl="12">
+    <MudItem xl="12" lg="12" xs="12" xxl="12" md="12" sm="12">
         <MudToolBar Style="@($"background-color:{_theme.Palette.Primary }; color:{_theme.Palette.AppbarText }")">
             @if (_completed)
             {
@@ -63,7 +63,7 @@
         _completedCount++;
         if (_completedCount <= _metrics.Count() - 1) return;
         var vectorStringArray = _metrics.Select(m => m.ToVectoryStringValue()).ToArray();
-        VectorString = string.Join('/', vectorStringArray);
+        VectorString = $"CVSS:3.1/{string.Join('/', vectorStringArray)}";
         ScoreCard.VectorString = VectorString;
         OnScoreCardCompleted.InvokeAsync(ScoreCard);
         _completed = true;

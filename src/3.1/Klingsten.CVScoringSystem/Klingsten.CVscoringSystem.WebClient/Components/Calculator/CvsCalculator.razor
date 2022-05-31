@@ -10,8 +10,11 @@
     <MudTabPanel Text="Temporal score">
         <CvsScoreCard @ref="_cvsTemporalScoreCard" ScoreCard="_temporalScoreCard"></CvsScoreCard>
     </MudTabPanel>
-    <MudTabPanel Text="Environment">
+    <MudTabPanel Text="Environment score">
         <CvsScoreCard @ref="_cvsEnvironmentScoreCard" ScoreCard="_environmentScoreCard"></CvsScoreCard>
+    </MudTabPanel>
+    <MudTabPanel Text="Modified">
+        <CvsScoreCard @ref="_cvsModifiedScoreCard" ScoreCard="_modifiedScoreCard"></CvsScoreCard>
     </MudTabPanel>
 </MudTabs>
 
@@ -28,12 +31,16 @@
     CvsScoreCard? _cvsEnvironmentScoreCard;
     ScoreCard? _environmentScoreCard;
 
+    CvsScoreCard? _cvsModifiedScoreCard;
+    ScoreCard? _modifiedScoreCard;
+
     protected override void OnInitialized()
     {
         var scoreCards = ScorecardService.GetScoreCards();
         _baseScoreCard = scoreCards.Single(s => s.MetricType == ScoreMetricType.Base);
         _temporalScoreCard = scoreCards.Single(s => s.MetricType == ScoreMetricType.Temporal);
         _environmentScoreCard = scoreCards.Single(s => s.MetricType == ScoreMetricType.Environmental);
+        _modifiedScoreCard = scoreCards.Single(s => s.MetricType == ScoreMetricType.Modified);
         StateHasChanged();
     }
 }

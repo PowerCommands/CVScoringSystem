@@ -1,0 +1,28 @@
+﻿@inject IStateService StateService
+@inject IPreferencesService PreferencesService
+
+<MudNavGroup Title="Settings" Expanded="true">
+    <MudSwitch Color="Color.Primary" Class="ma-4" T="bool" Label="Show description" CheckedChanged="ShowDecriptionChecked" Checked="Preferences.ShowMetricDecription" />
+    <MudSwitch Color="Color.Primary" Class="ma-4" T="bool" Label="Light/Dark Mode" CheckedChanged="DarkModeChecked" Checked="Preferences.IsDarkMode" />
+    <MudText Class="ma-4">Version: @ClientConfiguration.Version</MudText>
+</MudNavGroup>
+
+@code {
+    [Parameter]
+    public Preferences Preferences { get; set; } = new();
+
+    private void DarkModeChecked()
+    {
+        Preferences.IsDarkMode = !Preferences.IsDarkMode;
+        PreferencesService.Save(Preferences);
+        StateService.PreferencesChanged(Preferences);
+    }
+
+    private void ShowDecriptionChecked()
+    {
+        Preferences.ShowMetricDecription = !Preferences.ShowMetricDecription;
+        PreferencesService.Save(Preferences);
+        StateService.PreferencesChanged(Preferences);
+    }
+    
+}

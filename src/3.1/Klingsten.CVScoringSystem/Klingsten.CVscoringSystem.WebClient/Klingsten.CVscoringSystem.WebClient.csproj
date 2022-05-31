@@ -22,10 +22,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Services\" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <ProjectReference Include="..\Klingsten.CVScoringSystem.Shared\Klingsten.CVScoringSystem.Shared.csproj" />
 	</ItemGroup>
 

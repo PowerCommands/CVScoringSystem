@@ -10,6 +10,10 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 builder.Services.AddSingleton<IScorecardService, ScorecardService>();
+builder.Services.AddSingleton<ILocalStorageService, LocalStorageService>();
+builder.Services.AddSingleton<IEventService, EventService>();
+builder.Services.AddSingleton<IStateService, StateService>();
+builder.Services.AddSingleton<IPreferencesService, PreferencesService>();
 builder.Services.AddMudServices();
 
 await builder.Build().RunAsync();
