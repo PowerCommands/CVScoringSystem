@@ -8,8 +8,8 @@ public class UserInteractionData
     {
         var variables = new List<MetricVariable>
         {
-            new() {Name = "None", Vector = "N", Descricption = "The vulnerable system can be exploited without interaction from any user." },
-            new() {Name = "Required", Vector = "R", Descricption = "Successful exploitation of this vulnerability requires a user to take some action before the vulnerability can be exploited. For example, a successful exploit may only be possible during the installation of an application by a system administrator." }
+            new() {Name = "None", Weight = 0.85, Vector = "N", Descricption = "The vulnerable system can be exploited without interaction from any user." },
+            new() {Name = "Required", Weight = 0.62, Vector = "R", Descricption = "Successful exploitation of this vulnerability requires a user to take some action before the vulnerability can be exploited. For example, a successful exploit may only be possible during the installation of an application by a system administrator." }
         };
         var metric = new Metric
         {

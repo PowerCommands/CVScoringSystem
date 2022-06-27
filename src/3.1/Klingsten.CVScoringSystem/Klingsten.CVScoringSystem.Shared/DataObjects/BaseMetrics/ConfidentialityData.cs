@@ -8,9 +8,9 @@ public class ConfidentialityData
     {
         var variables = new List<MetricVariable>
         {
-            new() {Name = "High", Vector = "H", Descricption = "There is a total loss of confidentiality, resulting in all resources within the impacted component being divulged to the attacker. Alternatively, access to only some restricted information is obtained, but the disclosed information presents a direct, serious impact. For example, an attacker steals the administrator's password, or private encryption keys of a web server." },
-            new() {Name = "Low", Vector = "L", Descricption = "There is some loss of confidentiality. Access to some restricted information is obtained, but the attacker does not have control over what information is obtained, or the amount or kind of loss is limited. The information disclosure does not cause a direct, serious loss to the impacted component." },
-            new() {Name = "None", Vector = "N", Descricption = "There is no loss of confidentiality within the impacted component." }
+            new() {Name = "High", Weight = 0.56, Vector = "H", Descricption = "There is a total loss of confidentiality, resulting in all resources within the impacted component being divulged to the attacker. Alternatively, access to only some restricted information is obtained, but the disclosed information presents a direct, serious impact. For example, an attacker steals the administrator's password, or private encryption keys of a web server." },
+            new() {Name = "Low",  Weight = 0.22,Vector = "L", Descricption = "There is some loss of confidentiality. Access to some restricted information is obtained, but the attacker does not have control over what information is obtained, or the amount or kind of loss is limited. The information disclosure does not cause a direct, serious loss to the impacted component." },
+            new() {Name = "None", Weight = 0   ,   Vector = "N", Descricption = "There is no loss of confidentiality within the impacted component." }
         };
         var metric = new Metric
         {

@@ -5,7 +5,7 @@
 
 <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6" Border="true">
     <MudTabPanel Text="Base score">
-        <CvsScoreCard @ref="_cvsBaseScoreCard" ScoreCard="_baseScoreCard"></CvsScoreCard>
+        <CvsScoreCard @ref="_cvsBaseScoreCard" ScoreCard="_baseScoreCard" OnScoreCardCompleted="OnScoreCardCompleted"></CvsScoreCard>
     </MudTabPanel>
     <MudTabPanel Text="Temporal score">
         <CvsScoreCard @ref="_cvsTemporalScoreCard" ScoreCard="_temporalScoreCard"></CvsScoreCard>
@@ -43,4 +43,10 @@
         _modifiedScoreCard = scoreCards.Single(s => s.MetricType == ScoreMetricType.Modified);
         StateHasChanged();
     }
+
+    private void OnScoreCardCompleted(ScoreCard scoreCard)
+    {
+        
+    }
+
 }

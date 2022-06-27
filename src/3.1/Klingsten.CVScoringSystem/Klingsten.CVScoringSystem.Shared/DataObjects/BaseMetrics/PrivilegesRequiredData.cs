@@ -8,9 +8,9 @@ public class PrivilegesRequiredData
     {
         var variables = new List<MetricVariable>
         {
-            new() {Name = "None", Vector = "N", Descricption = "The attacker is unauthorized prior to attack, and therefore does not require any access to settings or files of the vulnerable system to carry out an attack." },
-            new() {Name = "Low", Vector = "L", Descricption = "The attacker requires privileges that provide basic user capabilities that could normally affect only settings and files owned by a user. Alternatively, an attacker with Low privileges has the ability to access only non-sensitive resources." },
-            new() {Name = "High", Vector = "H", Descricption = "The attacker requires privileges that provide significant (e.g., administrative) control over the vulnerable component allowing access to component-wide settings and files." }
+            new() {Name = "None", Weight = 0.85, AltWeight = 0.85, Vector = "N", Descricption = "The attacker is unauthorized prior to attack, and therefore does not require any access to settings or files of the vulnerable system to carry out an attack." },
+            new() {Name = "Low", Weight = 0.62, AltWeight = 0.68, Vector = "L", Descricption = "The attacker requires privileges that provide basic user capabilities that could normally affect only settings and files owned by a user. Alternatively, an attacker with Low privileges has the ability to access only non-sensitive resources." },
+            new() {Name = "High", Weight = 0.27, AltWeight = 0.5, Vector = "H", Descricption = "The attacker requires privileges that provide significant (e.g., administrative) control over the vulnerable component allowing access to component-wide settings and files." }
         };
         var metric = new Metric
         {

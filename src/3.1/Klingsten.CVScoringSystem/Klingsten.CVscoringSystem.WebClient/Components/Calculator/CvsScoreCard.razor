@@ -1,11 +1,12 @@
-﻿<MudGrid>
+﻿@using Klingsten.CVScoringSystem.Shared.Managers
+<MudGrid>
     <MudItem xl="12" lg="12" xs="12" xxl="12" md="12" sm="12">
         <MudToolBar Style="@($"background-color:{_theme.Palette.Primary }; color:{_theme.Palette.AppbarText }")">
             <MudText>@ScoreCard?.Name</MudText>
             <MudSpacer/>
             @if (_completed)
             {
-                <MudChip Text="Score" Color="Color.Error">5.3</MudChip>
+                <MudChip Text="Score" Color="Color.Error">@Score</MudChip>
             }
         </MudToolBar>
     </MudItem>
@@ -65,6 +66,12 @@
         var vectorStringArray = _metrics.Select(m => m.ToVectoryStringValue()).ToArray();
         VectorString = $"CVSS:3.1/{string.Join('/', vectorStringArray)}";
         ScoreCard.VectorString = VectorString;
+
+        var calculator = new ScoreCalculatorManager(ScoreCard, ScoreCard, ScoreCard, ScoreCard);
+        var result = calculator.GetScoreResult(VectorString, VectorString, VectorString, VectorString);
+
+        Score = result.ScoreDetail.BaseScore;
+
         OnScoreCardCompleted.InvokeAsync(ScoreCard);
         _completed = true;
         StateHasChanged();

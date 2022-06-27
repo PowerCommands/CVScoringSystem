@@ -8,8 +8,8 @@ public class ScopeData
     {
         var variables = new List<MetricVariable>
         {
-            new() {Name = "Unchanged", Vector = "U", Descricption = "An exploited vulnerability can only affect resources managed by the same security authority. In this case, the vulnerable component and the impacted component are either the same, or both are managed by the same security authority." },
-            new() {Name = "Changed", Vector = "C", Descricption = "An exploited vulnerability can affect resources beyond the security scope managed by the security authority of the vulnerable component. In this case, the vulnerable component and the impacted component are different and managed by different security authorities." }
+            new() {Name = "Unchanged", Weight = 6.42, Vector = "U", Descricption = "An exploited vulnerability can only affect resources managed by the same security authority. In this case, the vulnerable component and the impacted component are either the same, or both are managed by the same security authority." },
+            new() {Name = "Changed", Weight = 7.52, Vector = "C", Descricption = "An exploited vulnerability can affect resources beyond the security scope managed by the security authority of the vulnerable component. In this case, the vulnerable component and the impacted component are different and managed by different security authorities." }
         };
         var metric = new Metric
         {
