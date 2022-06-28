@@ -8,11 +8,11 @@ public class RemediationLevelData
     {
         var variables = new List<MetricVariable>
         {
-            new() {Name = "Not defined", Vector = "X", Descricption = "Assigning this value indicates there is insufficient information to choose one of the other values, and has no impact on the overall Temporal Score, i.e., it has the same effect on scoring as assigning Unavailable." },
-            new() {Name = "Unavailable", Vector = "U", Descricption = "There is either no solution available or it is impossible to apply." },
-            new() {Name = "Workaround", Vector = "W", Descricption = "There is an unofficial, non-vendor solution available. In some cases, users of the affected technology will create a patch of their own or provide steps to work around or otherwise mitigate the vulnerability." },
-            new() {Name = "Temporary Fix", Vector = "T", Descricption = "There is an official but temporary fix available. This includes instances where the vendor issues a temporary hotfix, tool, or workaround." },
-            new() {Name = "Official Fix ", Vector = "O", Descricption = "A complete vendor solution is available. Either the vendor has issued an official patch, or an upgrade is available." }
+            new() {Name = "Not defined", Weight = 1, Vector = "X", Descricption = "Assigning this value indicates there is insufficient information to choose one of the other values, and has no impact on the overall Temporal Score, i.e., it has the same effect on scoring as assigning Unavailable." },
+            new() {Name = "Unavailable", Weight = 1, Vector = "U", Descricption = "There is either no solution available or it is impossible to apply." },
+            new() {Name = "Workaround", Weight = 0.97, Vector = "W", Descricption = "There is an unofficial, non-vendor solution available. In some cases, users of the affected technology will create a patch of their own or provide steps to work around or otherwise mitigate the vulnerability." },
+            new() {Name = "Temporary Fix", Weight = 0.96, Vector = "T", Descricption = "There is an official but temporary fix available. This includes instances where the vendor issues a temporary hotfix, tool, or workaround." },
+            new() {Name = "Official Fix ", Weight = 0.95, Vector = "O", Descricption = "A complete vendor solution is available. Either the vendor has issued an official patch, or an upgrade is available." }
         };
         var metric = new Metric
         {

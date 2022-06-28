@@ -8,10 +8,10 @@ public class ConfidentialityRequirementData
     {
         var variables = new List<MetricVariable>
         {
-            new() {Name = "Not defined", Vector = "X", Descricption = "Assigning this value indicates there is insufficient information to choose one of the other values, and has no impact on the overall Environmental Score, i.e., it has the same effect on scoring as assigning Medium." },
-            new() {Name = "High", Vector = "H", Descricption = "Loss of [Confidentiality | Integrity | Availability] is likely to have a catastrophic adverse effect on the organization or individuals associated with the organization (e.g., employees, customers)." },
-            new() {Name = "Medium", Vector = "M", Descricption = "Loss of [Confidentiality | Integrity | Availability] is likely to have a serious adverse effect on the organization or individuals associated with the organization (e.g., employees, customers)." },
-            new() {Name = "Low", Vector = "L", Descricption = "Loss of [Confidentiality | Integrity | Availability] is likely to have only a limited adverse effect on the organization or individuals associated with the organization (e.g., employees, customers)." }
+            new() {Name = "Not defined", Weight = 1, Vector = "X", Descricption = "Assigning this value indicates there is insufficient information to choose one of the other values, and has no impact on the overall Environmental Score, i.e., it has the same effect on scoring as assigning Medium." },
+            new() {Name = "High", Weight = 1.5, Vector = "H", Descricption = "Loss of [Confidentiality | Integrity | Availability] is likely to have a catastrophic adverse effect on the organization or individuals associated with the organization (e.g., employees, customers)." },
+            new() {Name = "Medium", Weight = 1, Vector = "M", Descricption = "Loss of [Confidentiality | Integrity | Availability] is likely to have a serious adverse effect on the organization or individuals associated with the organization (e.g., employees, customers)." },
+            new() {Name = "Low", Weight = 0.5, Vector = "L", Descricption = "Loss of [Confidentiality | Integrity | Availability] is likely to have only a limited adverse effect on the organization or individuals associated with the organization (e.g., employees, customers)." }
         };
         var metric = new Metric
         {
