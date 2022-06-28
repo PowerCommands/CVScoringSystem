@@ -4,18 +4,18 @@
 <h3>Common Vulnerability Scoring System - Calculator</h3>
 <MudImage Src="images/cvss_web.png" Alt="CVSS logo" Elevation="25" Class="rounded-lg ma-4"/>
 
-<MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6" Border="true">
+<MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6" Border="true" KeepPanelsAlive="true">
     <MudTabPanel Text="Base score">
         <CvsScoreCard @ref="_cvsBaseScoreCard" ScoreCard="_baseScoreCard" OnScoreCardCompleted="OnScoreCardCompleted"></CvsScoreCard>
     </MudTabPanel>
     <MudTabPanel Text="Temporal score">
-        <CvsScoreCard @ref="_cvsTemporalScoreCard" ScoreCard="_temporalScoreCard"></CvsScoreCard>
+        <CvsScoreCard @ref="_cvsTemporalScoreCard" ScoreCard="_temporalScoreCard" OnScoreCardCompleted="OnScoreCardCompleted"></CvsScoreCard>
     </MudTabPanel>
     <MudTabPanel Text="Environment score">
-        <CvsScoreCard @ref="_cvsEnvironmentScoreCard" ScoreCard="_environmentScoreCard"></CvsScoreCard>
+        <CvsScoreCard @ref="_cvsEnvironmentScoreCard" ScoreCard="_environmentScoreCard" OnScoreCardCompleted="OnScoreCardCompleted"></CvsScoreCard>
     </MudTabPanel>
     <MudTabPanel Text="Modified">
-        <CvsScoreCard @ref="_cvsModifiedScoreCard" ScoreCard="_modifiedScoreCard"></CvsScoreCard>
+        <CvsScoreCard @ref="_cvsModifiedScoreCard" ScoreCard="_modifiedScoreCard" OnScoreCardCompleted="OnScoreCardCompleted"></CvsScoreCard>
     </MudTabPanel>
 </MudTabs>
 
@@ -24,24 +24,26 @@
     SurveyModel _survey = new();
 
     CvsScoreCard? _cvsBaseScoreCard;
-    ScoreCard? _baseScoreCard;
+    ScoreCard _baseScoreCard = new();
 
     CvsScoreCard? _cvsTemporalScoreCard;
-    ScoreCard? _temporalScoreCard;
+    ScoreCard _temporalScoreCard = new();
 
     CvsScoreCard? _cvsEnvironmentScoreCard;
-    ScoreCard? _environmentScoreCard;
+    ScoreCard _environmentScoreCard = new();
 
     CvsScoreCard? _cvsModifiedScoreCard;
-    ScoreCard? _modifiedScoreCard;
+    ScoreCard _modifiedScoreCard = new();
 
     protected override void OnInitialized()
     {
-        var scoreCards = ScorecardService.GetScoreCards();
-        _baseScoreCard = scoreCards.Single(s => s.MetricType == ScoreMetricType.Base);
-        _temporalScoreCard = scoreCards.Single(s => s.MetricType == ScoreMetricType.Temporal);
-        _environmentScoreCard = scoreCards.Single(s => s.MetricType == ScoreMetricType.Environmental);
-        _modifiedScoreCard = scoreCards.Single(s => s.MetricType == ScoreMetricType.Modified);
+        var scoreCards = ScorecardService.GetScoreCards().ToList();
+
+        _baseScoreCard = scoreCards.First(s => s.MetricType == ScoreMetricType.Base);
+        _temporalScoreCard = scoreCards.First(s => s.MetricType == ScoreMetricType.Temporal);
+        _environmentScoreCard = scoreCards.First(s => s.MetricType == ScoreMetricType.Environmental);
+        _modifiedScoreCard = scoreCards.First(s => s.MetricType == ScoreMetricType.Modified);
+
         StateHasChanged();
     }
 
@@ -63,6 +65,7 @@
         _temporalScoreCard.Score = result.ScoreDetail.TempuralScore;
         _environmentScoreCard.Score = result.ScoreDetail.EnvironmentScore;
         _modifiedScoreCard.Score = result.ScoreDetail.EnvironmentScore;
+        
         StateHasChanged();
     }
 

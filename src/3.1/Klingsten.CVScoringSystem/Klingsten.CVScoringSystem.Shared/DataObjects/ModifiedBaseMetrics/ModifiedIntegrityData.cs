@@ -11,7 +11,7 @@ public class ModifiedIntegrityData
         metric.Name = "Modified Integrity";
         metric.Vector = "MI";
         metric.Descricption = ModifiedAttackComplexityData.GetDescription();
-        metric.Variables.Insert(0, new MetricVariable { Name = "Not defined", Vector = "X", Descricption = "The value assigned to the corresponding base metric is used." });
+        metric.Variables.Insert(0, new MetricVariable { Name = "Not defined", Weight = 1, Vector = "X", Descricption = "The value assigned to the corresponding base metric is used." });
         return metric;
     }
 }

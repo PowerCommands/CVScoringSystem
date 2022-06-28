@@ -13,4 +13,5 @@ public static class ScoreCardExtensions
         var metricVariable = metric.Variables.First(v => v.Vector == metricValue);
         return metricVariable;
     }
+    public static double ReplaceIfUnmodified(this double metricVariableWeight, double baseWeight) => metricVariableWeight == 1 ? baseWeight : metricVariableWeight;
 }

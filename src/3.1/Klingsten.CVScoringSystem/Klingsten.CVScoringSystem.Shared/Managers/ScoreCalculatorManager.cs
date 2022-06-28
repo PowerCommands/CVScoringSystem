@@ -86,15 +86,23 @@ public class ScoreCalculatorManager
         var ir = new BaseWeight(vector, _environmentalScoreCard.Metric("IR")).Weight;
         var ar = new BaseWeight(vector, _environmentalScoreCard.Metric("AR")).Weight;
 
-        var mav = new BaseWeight(vector, _modifiedScoreCard.Metric("MAV")).Weight;
-        var mac = new BaseWeight(vector, _modifiedScoreCard.Metric("MAC")).Weight;
-        var mpr = new PrivilegesRequiredWeight(vector, _modifiedScoreCard.Metric("MPR"), _modifiedScoreCard.Metric("MS")).Weight;
-        var mui = new BaseWeight(vector, _modifiedScoreCard.Metric("MUI")).Weight;
-        var ms = new BaseWeight(vector, _modifiedScoreCard.Metric("MS")).Weight;
-        var mc = new BaseWeight(vector, _modifiedScoreCard.Metric("MC")).Weight;
-        var mi = new BaseWeight(vector, _modifiedScoreCard.Metric("MI")).Weight;
-        var ma = new BaseWeight(vector, _modifiedScoreCard.Metric("MA")).Weight;
+        var av = new BaseWeight(vector, _baseScoreCard.Metric("AV")).Weight;
+        var ac = new BaseWeight(vector, _baseScoreCard.Metric("AC")).Weight;
+        var pr = new PrivilegesRequiredWeight(vector, _baseScoreCard.Metric("PR"), _baseScoreCard.Metric("S")).Weight;
+        var ui = new BaseWeight(vector, _baseScoreCard.Metric("UI")).Weight;
+        var s = new BaseWeight(vector, _baseScoreCard.Metric("S")).Weight;
+        var c = new BaseWeight(vector, _baseScoreCard.Metric("C")).Weight;
+        var i = new BaseWeight(vector, _baseScoreCard.Metric("I")).Weight;
+        var a = new BaseWeight(vector, _baseScoreCard.Metric("A")).Weight;
 
+        var mav = new BaseWeight(vector, _modifiedScoreCard.Metric("MAV")).Weight.ReplaceIfUnmodified(av);
+        var mac = new BaseWeight(vector, _modifiedScoreCard.Metric("MAC")).Weight.ReplaceIfUnmodified(ac);
+        var mpr = new PrivilegesRequiredWeight(vector, _modifiedScoreCard.Metric("MPR"), _modifiedScoreCard.Metric("MS")).Weight.ReplaceIfUnmodified(pr);
+        var mui = new BaseWeight(vector, _modifiedScoreCard.Metric("MUI")).Weight.ReplaceIfUnmodified(ui);
+        var ms = new BaseWeight(vector, _modifiedScoreCard.Metric("MS")).Weight.ReplaceIfUnmodified(s);
+        var mc = new BaseWeight(vector, _modifiedScoreCard.Metric("MC")).Weight.ReplaceIfUnmodified(c);
+        var mi = new BaseWeight(vector, _modifiedScoreCard.Metric("MI")).Weight.ReplaceIfUnmodified(i);
+        var ma = new BaseWeight(vector, _modifiedScoreCard.Metric("MA")).Weight.ReplaceIfUnmodified(a);
 
         double envScore;
 

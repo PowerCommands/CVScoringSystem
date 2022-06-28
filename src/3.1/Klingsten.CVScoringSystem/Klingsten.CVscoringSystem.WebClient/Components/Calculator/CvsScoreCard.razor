@@ -42,6 +42,7 @@
     MudTheme _theme = new();
     bool _completed;
     int _completedCount;
+    bool _isInitialized;
     IEnumerable<Metric> _metrics = new List<Metric>();
 
     [Parameter]
@@ -51,6 +52,8 @@
 
     protected override void OnInitialized()
     {
+        if(_isInitialized) return;;
+        _isInitialized = true;
         _metrics = ScoreCard.Metrics;
         StateHasChanged();
     }
