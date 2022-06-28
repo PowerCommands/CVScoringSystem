@@ -6,7 +6,7 @@
             <MudSpacer/>
             @if (_completed)
             {
-                <MudChip Text="Score" Color="Color.Error">@Score</MudChip>
+                <MudChip Text="Score" Color="Color.Error">@ScoreCard.Score</MudChip>
             }
         </MudToolBar>
     </MudItem>
@@ -30,7 +30,7 @@
         <MudToolBar Style="@($"background-color:{_theme.Palette.Primary }; color:{_theme.Palette.AppbarText }")">
             @if (_completed)
             {
-                <MudText>Vector string: @VectorString</MudText>
+                <MudText>Vector string: @ScoreCard.VectorString</MudText>
             }
         </MudToolBar>
     </MudItem>
@@ -49,10 +49,6 @@
     [Parameter] 
     public EventCallback<ScoreCard> OnScoreCardCompleted { get; set; }
 
-    public double Score { get; set; }
-    public string VectorString { get; set; } = "";
-
-
     protected override void OnInitialized()
     {
         _metrics = ScoreCard.Metrics;
@@ -63,14 +59,6 @@
     {
         _completedCount++;
         if (_completedCount <= _metrics.Count() - 1) return;
-        var vectorStringArray = _metrics.Select(m => m.ToVectoryStringValue()).ToArray();
-        VectorString = $"CVSS:3.1/{string.Join('/', vectorStringArray)}";
-        ScoreCard.VectorString = VectorString;
-
-        var calculator = new ScoreCalculatorManager(ScoreCard, ScoreCard, ScoreCard, ScoreCard);
-        var result = calculator.GetScoreResult(VectorString, VectorString, VectorString, VectorString);
-
-        Score = result.ScoreDetail.BaseScore;
 
         OnScoreCardCompleted.InvokeAsync(ScoreCard);
         _completed = true;

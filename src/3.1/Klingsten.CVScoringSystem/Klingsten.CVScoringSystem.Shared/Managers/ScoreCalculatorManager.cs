@@ -33,14 +33,14 @@ public class ScoreCalculatorManager
         return SeverityRating.None;
     }
 
-    public ScoreResult GetScoreResult(string baseVector, string temporalVector, string environmentalVector, string modifiedVector)
+    public ScoreResult GetScoreResult(string baseVector)
     {
-        var baseScore = GetBaseScore(baseVector);
-        var retVal = new ScoreResult(baseScore, baseScore.BaseScore, GetSeverityRating(baseScore.BaseScore));
+        var scoreDetail = GetScoreDetails(baseVector);
+        var retVal = new ScoreResult(scoreDetail, GetSeverityRating(scoreDetail.BaseScore), GetSeverityRating(scoreDetail.TempuralScore), GetSeverityRating(scoreDetail.EnvironmentScore));
         return retVal;
     }
 
-    private ScoreDetail GetBaseScore(string vector)
+    private ScoreDetail GetScoreDetails(string vector)
     {
         var av = new BaseWeight(vector, _baseScoreCard.Metric("AV")).Weight;
         var ac = new BaseWeight(vector, _baseScoreCard.Metric("AC")).Weight;
@@ -62,7 +62,7 @@ public class ScoreCalculatorManager
         var temporalScore = GetTemporalScore(vector, baseScore);
         var environmentalScore = GetEnvironmentScore(vector);
 
-        var scoreDetail = new ScoreDetail {BaseScore = baseScore, Exploitability = exploitability, Impact = impact, TempuralScore = temporalScore, ModifiedScore = environmentalScore.Score, ModifiedExploitability = environmentalScore.Exploitability, ModifiedImpact = environmentalScore.Impact};
+        var scoreDetail = new ScoreDetail {BaseScore = baseScore, Exploitability = exploitability, Impact = impact, TempuralScore = temporalScore, EnvironmentScore = environmentalScore.Score, ModifiedExploitability = environmentalScore.Exploitability, ModifiedImpact = environmentalScore.Impact};
         return scoreDetail;
     }
 
@@ -76,7 +76,7 @@ public class ScoreCalculatorManager
         return score;
     }
 
-    private ModifiedScore GetEnvironmentScore(string vector)
+    private EnvironmentalScore GetEnvironmentScore(string vector)
     {
         var e = new BaseWeight(vector, _temporalScoreCard.Metric("E")).Weight;
         var rl = new BaseWeight(vector, _temporalScoreCard.Metric("RL")).Weight;
@@ -119,7 +119,7 @@ public class ScoreCalculatorManager
             envScore = RoundUp(RoundUp(Math.Min(ScopeCoefficient * (modifiedImpact + modifiedExploitability), 10)) * e * rl * rc);
         }
 
-        var scoreDetail = new ModifiedScore {Score = envScore, Exploitability = modifiedExploitability, Impact = modifiedImpact};
+        var scoreDetail = new EnvironmentalScore {Score = envScore, Exploitability = modifiedExploitability, Impact = modifiedImpact};
         return scoreDetail;
     }
     private double RoundUp(double input)

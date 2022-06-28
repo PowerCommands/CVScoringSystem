@@ -9,6 +9,7 @@ public static class ScoreCardExtensions
     {
         var metricString = vector.Split('/').First(v => v.StartsWith($"{metric.Vector}:"));
         var metricValue = metricString.Split(':')[1];
+        if (string.IsNullOrEmpty(metricValue)) metricValue = "X";
         var metricVariable = metric.Variables.First(v => v.Vector == metricValue);
         return metricVariable;
     }

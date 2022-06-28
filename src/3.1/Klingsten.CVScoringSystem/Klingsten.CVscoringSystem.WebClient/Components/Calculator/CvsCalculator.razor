@@ -1,4 +1,5 @@
 ﻿@using Klingsten.CVScoringSystem.Shared.Models
+@using Klingsten.CVScoringSystem.Shared.Managers
 @inject IScorecardService ScorecardService
 <h3>Common Vulnerability Scoring System - Calculator</h3>
 <MudImage Src="images/cvss_web.png" Alt="CVSS logo" Elevation="25" Class="rounded-lg ma-4"/>
@@ -46,7 +47,23 @@
 
     private void OnScoreCardCompleted(ScoreCard scoreCard)
     {
-        
+        var metrics = new List<Metric>();
+        metrics.AddRange(_baseScoreCard.Metrics);
+        metrics.AddRange(_temporalScoreCard.Metrics);
+        metrics.AddRange(_environmentScoreCard.Metrics);
+        metrics.AddRange(_modifiedScoreCard.Metrics);
+
+        var vectorStringArray = metrics.Select(m => m.ToVectoryStringValue()).ToArray();
+        var vectorString = $"CVSS:3.1/{string.Join('/', vectorStringArray)}";
+        _baseScoreCard.VectorString = vectorString;
+
+        var calculator = new ScoreCalculatorManager(_baseScoreCard, _temporalScoreCard, _environmentScoreCard, _modifiedScoreCard);
+        var result = calculator.GetScoreResult(vectorString);
+        _baseScoreCard.Score = result.ScoreDetail.BaseScore;
+        _temporalScoreCard.Score = result.ScoreDetail.TempuralScore;
+        _environmentScoreCard.Score = result.ScoreDetail.EnvironmentScore;
+        _modifiedScoreCard.Score = result.ScoreDetail.EnvironmentScore;
+        StateHasChanged();
     }
 
 }
