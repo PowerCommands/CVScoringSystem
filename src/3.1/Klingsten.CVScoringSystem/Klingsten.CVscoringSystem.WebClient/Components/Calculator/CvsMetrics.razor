@@ -5,7 +5,14 @@
     <MudChipSet @bind-SelectedChip="_selected" Filter="true" Mandatory="true">
         @foreach (var metricVariable in Metric.Variables)
         {
-            <MudChip Text="grey" Color="Color.Default" SelectedColor="Color.Success" Style="margin-left: 18px" @onmouseover="() => ShowDescription(metricVariable)" @onclick="() => OnMetricClick(metricVariable)">@metricVariable.Name (@metricVariable.Vector)</MudChip>
+            if (metricVariable.Vector == "X")
+            {
+                <MudChip @ref="_selected" Text="grey" Color="Color.Default" SelectedColor="Color.Success" Style="margin-left: 18px" @onmouseover="() => ShowDescription(metricVariable)" @onclick="() => OnMetricClick(metricVariable)">@metricVariable.Name (@metricVariable.Vector)</MudChip>
+            }
+            else
+            {
+                <MudChip Text="grey" Color="Color.Default" SelectedColor="Color.Success" Style="margin-left: 18px" @onmouseover="() => ShowDescription(metricVariable)" @onclick="() => OnMetricClick(metricVariable)">@metricVariable.Name (@metricVariable.Vector)</MudChip>
+            }
         }
     </MudChipSet>
     <MudText Style="margin-left: 20px">@((MarkupString)$"{_guidance}")</MudText>
@@ -15,6 +22,7 @@
     MudChip? _selected;
     string _guidance = "";
     bool _showDescription = false;
+    bool _isInitialized;
 
     [Parameter]
     public Metric Metric { get; set; } = new();
@@ -29,6 +37,10 @@
             _showDescription = preferences.ShowMetricDecription;
             StateHasChanged();
         };
+        if(_isInitialized) return;
+        var notDefinedVector = Metric.Variables.FirstOrDefault(v => v.Vector == "X");
+        if(notDefinedVector == null) return;
+        OnMetricClick(notDefinedVector);
     }
 
     private void ShowDescription(MetricVariable metricVariable) => _guidance = _showDescription ? $"<p><b>{metricVariable.Name}:</b> {metricVariable.Descricption}</p><br/><p>{Metric.Guidance}</p>" : "";

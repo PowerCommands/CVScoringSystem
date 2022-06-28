@@ -63,6 +63,10 @@
         _completedCount++;
         if (_completedCount <= _metrics.Count() - 1) return;
 
+        var vectorStringArray = _metrics.Select(m => m.ToVectoryStringValue()).ToArray();
+        var vectorString = $"CVSS:3.1/{string.Join('/', vectorStringArray)}";
+        ScoreCard.VectorString = vectorString;
+
         OnScoreCardCompleted.InvokeAsync(ScoreCard);
         _completed = true;
         StateHasChanged();

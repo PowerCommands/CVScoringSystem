@@ -18,8 +18,14 @@
         <CvsScoreCard @ref="_cvsModifiedScoreCard" ScoreCard="_modifiedScoreCard" OnScoreCardCompleted="OnScoreCardCompleted"></CvsScoreCard>
     </MudTabPanel>
 </MudTabs>
+<MudItem xl="12" lg="12" xs="12" xxl="12" md="12" sm="12">
+    <MudToolBar Style="@($"background-color:{_theme.Palette.Primary }; color:{_theme.Palette.AppbarText }")">
+        <MudText>Vector string: @_vectorString</MudText>
+    </MudToolBar>
+</MudItem>
 
 @code {
+    MudTheme _theme = new();
 
     SurveyModel _survey = new();
 
@@ -34,6 +40,8 @@
 
     CvsScoreCard? _cvsModifiedScoreCard;
     ScoreCard _modifiedScoreCard = new();
+
+    string _vectorString = "";
 
     protected override void OnInitialized()
     {
@@ -57,7 +65,8 @@
 
         var vectorStringArray = metrics.Select(m => m.ToVectoryStringValue()).ToArray();
         var vectorString = $"CVSS:3.1/{string.Join('/', vectorStringArray)}";
-        _baseScoreCard.VectorString = vectorString;
+
+        _vectorString = vectorString;
 
         var calculator = new ScoreCalculatorManager(_baseScoreCard, _temporalScoreCard, _environmentScoreCard, _modifiedScoreCard);
         var result = calculator.GetScoreResult(vectorString);
