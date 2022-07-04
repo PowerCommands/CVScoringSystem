@@ -18,12 +18,15 @@
         <CvsScoreCard @ref="_cvsModifiedScoreCard" ScoreCard="_modifiedScoreCard" OnScoreCardCompleted="OnScoreCardCompleted"></CvsScoreCard>
     </MudTabPanel>
 </MudTabs>
-<MudItem xl="12" lg="12" xs="12" xxl="12" md="12" sm="12">
-    <MudToolBar Style="@($"background-color:{_theme.Palette.Primary }; color:{_theme.Palette.AppbarText }")">
-        <MudText>Vector string: @_vectorString</MudText>
-    </MudToolBar>
-</MudItem>
-
+@if (_completed)
+{
+    <MudItem xl="12" lg="12" xs="12" xxl="12" md="12" sm="12">
+        <MudToolBar Style="@($"background-color:{_theme.Palette.Primary }; color:{_theme.Palette.AppbarText }")">
+            <MudText>Vector string: @_vectorString</MudText>
+        </MudToolBar>
+        <AddReportDetail VectorString="@_vectorString"></AddReportDetail>
+    </MudItem>
+}
 @code {
     MudTheme _theme = new();
 
@@ -42,6 +45,7 @@
     ScoreCard _modifiedScoreCard = new();
 
     string _vectorString = "";
+    bool _completed;
 
     protected override void OnInitialized()
     {
@@ -74,7 +78,9 @@
         _temporalScoreCard.Score = result.ScoreDetail.TempuralScore;
         _environmentScoreCard.Score = result.ScoreDetail.EnvironmentScore;
         _modifiedScoreCard.Score = result.ScoreDetail.EnvironmentScore;
-        
+
+        _completed = true;
+
         StateHasChanged();
     }
 

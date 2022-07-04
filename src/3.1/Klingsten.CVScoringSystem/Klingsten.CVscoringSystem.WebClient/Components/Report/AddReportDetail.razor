@@ -1,0 +1,23 @@
+﻿@inject IReportService ReportService
+
+<h3>Add vulnerability to report</h3>
+<MudTextField @bind-Value="@_name" Label="Name" Variant="Variant.Text" HelperText="Name"></MudTextField>
+<MudTextField @bind-Value="@_description" Label="Description" Variant="Variant.Text" HelperText="Description"></MudTextField>
+<MudTextField @bind-Value="@VectorString" Label="VectorString" ReadOnly="true" Variant="Variant.Text" />
+<MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Create" Color="Color.Primary" OnClick="OnClickAddToReport">Add</MudButton>
+
+@code {
+
+    string _name = "";
+    string _description = "";
+
+    [Parameter]
+    public string VectorString { get; set; } = "";
+
+    private void OnClickAddToReport()
+    {
+        var vulnerability = new Vulnerability {Description = _description, Name = _name, VectorString = VectorString};
+        ReportService.Add(vulnerability);
+    }
+
+}

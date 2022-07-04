@@ -19,6 +19,7 @@
 	<ItemGroup>
 	  <_ContentIncludedByDefault Remove="Components\Calculator\CvsCalculator.razor" />
 	  <_ContentIncludedByDefault Remove="Components\Calculator\CvsScoreCard.razor" />
+	  <_ContentIncludedByDefault Remove="Components\Report\ReportDetailItem.razor" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -27,6 +28,10 @@
 
 	<ItemGroup>
 	  <UpToDateCheckInput Remove="Components\Calculator\CvsCalculator.razor" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <UpToDateCheckInput Remove="Components\Report\ReportDetailItem.razor" />
 	</ItemGroup>
 	
 	

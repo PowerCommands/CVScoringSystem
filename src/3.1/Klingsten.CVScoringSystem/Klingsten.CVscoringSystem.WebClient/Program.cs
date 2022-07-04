@@ -14,6 +14,7 @@ builder.Services.AddSingleton<ILocalStorageService, LocalStorageService>();
 builder.Services.AddSingleton<IEventService, EventService>();
 builder.Services.AddSingleton<IStateService, StateService>();
 builder.Services.AddSingleton<IPreferencesService, PreferencesService>();
+builder.Services.AddSingleton<IReportService, ReportService>();
 builder.Services.AddMudServices();
 
 await builder.Build().RunAsync();
