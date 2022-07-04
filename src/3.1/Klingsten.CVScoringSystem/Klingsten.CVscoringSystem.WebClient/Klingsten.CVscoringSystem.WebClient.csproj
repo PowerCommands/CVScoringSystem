@@ -33,6 +33,10 @@
 	<ItemGroup>
 	  <UpToDateCheckInput Remove="Components\Report\ReportDetailItem.razor" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Components\Dialogs\" />
+	</ItemGroup>
 	
 	
 </Project>

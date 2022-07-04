@@ -5,19 +5,34 @@
 <MudTextField @bind-Value="@_description" Label="Description" Variant="Variant.Text" HelperText="Description"></MudTextField>
 <MudTextField @bind-Value="@VectorString" Label="VectorString" ReadOnly="true" Variant="Variant.Text" />
 <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Create" Color="Color.Primary" OnClick="OnClickAddToReport">Add</MudButton>
+<AlertDialog @ref="_alertDialog"></AlertDialog>
+
 
 @code {
 
     string _name = "";
     string _description = "";
+    
+    AlertDialog? _alertDialog;
 
     [Parameter]
     public string VectorString { get; set; } = "";
 
-    private void OnClickAddToReport()
+    private async void OnClickAddToReport()
     {
         var vulnerability = new Vulnerability {Description = _description, Name = _name, VectorString = VectorString};
-        ReportService.Add(vulnerability);
+        var result = await ReportService.Add(vulnerability);
+        if (result)
+        {
+            _alertDialog?.ShowSuccess($"{nameof(Vulnerability)} added to report.");
+            _name = "";
+            _description = "";
+        }
+        else
+        {
+            _alertDialog?.ShowError("Something went wrong...");
+        }
+        StateHasChanged();
     }
 
 }

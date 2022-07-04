@@ -1,0 +1,26 @@
+﻿@if (_showAlert)
+{
+    <MudAlert @ref="_mudAlert" Severity="@_alertTemplate.Severity" Dense="true" Class="my-2">@_alertTemplate.Message</MudAlert>
+}
+
+@code {
+
+    MudAlert _mudAlert = new();
+    bool _showAlert;
+    readonly AlertTemplate _alertTemplate = new() {Severity = Severity.Normal,Message = "Status: 👍"};
+
+    public void ShowSuccess(string message = "Operation runned successfully!") => Show($"{message} 🍻", Severity.Success);
+    public void ShowError(string message = "Error occured!") => Show($"{message} 💥", Severity.Error);
+    public void ShowWarning(string message = "Heads up, you may need to reload page!") => Show($"{message} ⚠️", Severity.Warning);
+    public void ShowInfo(string message = "Just stay cool, everything is OK! 😎") => Show($"{message} 😎", Severity.Info);
+    public void ShowNormal(string message = "Status: Normal") => Show($"{message} 👍", Severity.Info);
+
+    private void Show(string message, Severity severity)
+    {
+        _showAlert = true;
+        _alertTemplate.Message = message;
+        _alertTemplate.Severity = severity;
+        _alertTemplate.Show = true;
+        StateHasChanged();
+    }
+}
