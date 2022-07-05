@@ -30,7 +30,7 @@
 @code {
     MudTheme _theme = new();
 
-    SurveyModel _survey = new();
+    //SurveyModel _survey = new();
 
     CvsScoreCard? _cvsBaseScoreCard;
     ScoreCard _baseScoreCard = new();
@@ -75,7 +75,7 @@
         var calculator = new ScoreCalculatorManager(_baseScoreCard, _temporalScoreCard, _environmentScoreCard, _modifiedScoreCard);
         var result = calculator.GetScoreResult(vectorString);
         _baseScoreCard.Score = result.ScoreDetail.BaseScore;
-        _temporalScoreCard.Score = result.ScoreDetail.TempuralScore;
+        _temporalScoreCard.Score = result.ScoreDetail.TemporalScore;
         _environmentScoreCard.Score = result.ScoreDetail.EnvironmentScore;
         _modifiedScoreCard.Score = result.ScoreDetail.EnvironmentScore;
 

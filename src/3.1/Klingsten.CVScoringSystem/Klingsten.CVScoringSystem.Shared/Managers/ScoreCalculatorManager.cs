@@ -15,6 +15,14 @@ public class ScoreCalculatorManager
     private readonly ScoreCard _environmentalScoreCard;
     private readonly ScoreCard _modifiedScoreCard;
 
+    public ScoreCalculatorManager(List<ScoreCard> scoreCards)
+    {
+        _baseScoreCard = scoreCards.First(s => s.MetricType == ScoreMetricType.Base);
+        _temporalScoreCard = scoreCards.First(s => s.MetricType == ScoreMetricType.Temporal);
+        _environmentalScoreCard = scoreCards.First(s => s.MetricType == ScoreMetricType.Environmental);
+        _modifiedScoreCard = scoreCards.First(s => s.MetricType == ScoreMetricType.Modified);
+    }
+
     public ScoreCalculatorManager(ScoreCard baseScoreCard, ScoreCard temporalScoreCard, ScoreCard environmentalScoreCard, ScoreCard modifiedScoreCard)
     {
         _baseScoreCard = baseScoreCard;
@@ -36,7 +44,7 @@ public class ScoreCalculatorManager
     public ScoreResult GetScoreResult(string baseVector)
     {
         var scoreDetail = GetScoreDetails(baseVector);
-        var retVal = new ScoreResult(scoreDetail, GetSeverityRating(scoreDetail.BaseScore), GetSeverityRating(scoreDetail.TempuralScore), GetSeverityRating(scoreDetail.EnvironmentScore));
+        var retVal = new ScoreResult(scoreDetail, GetSeverityRating(scoreDetail.BaseScore), GetSeverityRating(scoreDetail.TemporalScore), GetSeverityRating(scoreDetail.EnvironmentScore));
         return retVal;
     }
 
@@ -62,7 +70,7 @@ public class ScoreCalculatorManager
         var temporalScore = GetTemporalScore(vector, baseScore);
         var environmentalScore = GetEnvironmentScore(vector);
 
-        var scoreDetail = new ScoreDetail {BaseScore = baseScore, Exploitability = exploitability, Impact = impact, TempuralScore = temporalScore, EnvironmentScore = environmentalScore.Score, ModifiedExploitability = environmentalScore.Exploitability, ModifiedImpact = environmentalScore.Impact};
+        var scoreDetail = new ScoreDetail {BaseScore = baseScore, Exploitability = exploitability, Impact = impact, TemporalScore = temporalScore, EnvironmentScore = environmentalScore.Score, ModifiedExploitability = environmentalScore.Exploitability, ModifiedImpact = environmentalScore.Impact};
         return scoreDetail;
     }
 

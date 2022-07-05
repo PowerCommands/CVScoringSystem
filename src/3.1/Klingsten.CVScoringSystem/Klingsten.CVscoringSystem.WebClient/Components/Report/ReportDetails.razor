@@ -1,6 +1,21 @@
-﻿<h3>Report</h3>
+﻿@inject IReportService ReportService
 
+<h2>Report</h2>
+
+@foreach (var item in _report.Vulnerabilities)
+{
+    <p><ReportDetailItem Vulnerability="item"></ReportDetailItem></p>
+}
+
+<h3>Note that CVSS Measures Severity, not Risk</h3>
 
 @code {
-    
+
+    VulnerabilityReport _report = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        _report = await ReportService.Get();
+    }
+
 }

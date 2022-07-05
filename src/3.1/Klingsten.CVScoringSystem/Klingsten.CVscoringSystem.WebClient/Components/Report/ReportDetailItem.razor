@@ -1,8 +1,33 @@
-﻿<h3>Detail</h3>
+﻿@using Klingsten.CVScoringSystem.Shared.Managers
+@inject IScorecardService ScorecardService
+
+<h2>@Vulnerability.Name</h2>
+<h3>@Vulnerability.Description</h3>
+<p>
+    <b>Base score:</b> @_scoreResult.ScoreDetail.BaseScore<br />
+    <b>Temporal score:</b> @_scoreResult.ScoreDetail.TemporalScore<br />
+    <b>EnvironmentScore:</b> @_scoreResult.ScoreDetail.EnvironmentScore<br />
+</p>
+<p>
+    <b>Overall rating:</b> @_rating<br />
+</p>
 
 @code {
 
+    ScoreResult _scoreResult = new();
+    bool _isLoading;
+    string _rating = "";
+
     [Parameter]
-    public Vulnerability Vulnerability { get; set; } = new Vulnerability {Name = "-", Description = "-"};
+    public Vulnerability Vulnerability { get; set; } = new() { Name = "-", Description = "-" };
+
+    protected override void OnInitialized()
+    {
+        var scoreCards = ScorecardService.GetScoreCards().ToList();
+        var calculator = new ScoreCalculatorManager(scoreCards);
+        _scoreResult = calculator.GetScoreResult(Vulnerability.VectorString);
+
+        _rating = $"{_scoreResult.EnviromentalSeverityRating}";
+    }
 
 }
