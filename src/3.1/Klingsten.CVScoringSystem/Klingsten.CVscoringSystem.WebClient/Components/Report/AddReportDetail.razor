@@ -2,7 +2,8 @@
 @inject IStateService StateService
 
 <h3>Add vulnerability to report</h3>
-<TestCategorySelector OnIncognitoSelected="OnTestCategorySelected"></TestCategorySelector>
+<TestCategorySelector OnItemSelected="OnTestCategorySelected"></TestCategorySelector>
+<CommonVulnerabilitiesSelector OnItemSelected="OnVulnerabillitySelected"></CommonVulnerabilitiesSelector>
 
 <MudTextField @bind-Value="@_name" Label="Name" Variant="Variant.Text" HelperText="Name"></MudTextField>
 <MudTextField @bind-Value="@_description" Label="Description" Variant="Variant.Text" HelperText="Description"></MudTextField>
@@ -40,5 +41,6 @@
     }
 
     private void OnTestCategorySelected(string category) => _category = category;
+    private void OnVulnerabillitySelected(string vulnerabillity) => _name = vulnerabillity;
 
 }

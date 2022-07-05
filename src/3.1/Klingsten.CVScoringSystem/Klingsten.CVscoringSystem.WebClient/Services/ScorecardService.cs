@@ -1,4 +1,6 @@
-﻿using Klingsten.CVScoringSystem.Shared.DataObjects.BaseMetrics;
+﻿using System.Net.Http.Json;
+using Klingsten.CVScoringSystem.Shared.DataObjects;
+using Klingsten.CVScoringSystem.Shared.DataObjects.BaseMetrics;
 using Klingsten.CVScoringSystem.Shared.DataObjects.EnvironmentalMetrics;
 using Klingsten.CVScoringSystem.Shared.DataObjects.ModifiedBaseMetrics;
 using Klingsten.CVScoringSystem.Shared.DataObjects.TemporalMetrics;
@@ -6,6 +8,12 @@ using Klingsten.CVScoringSystem.Shared.DataObjects.TemporalMetrics;
 namespace Klingsten.CVscoringSystem.WebClient.Services;
 public class ScorecardService : IScorecardService
 {
+    private readonly HttpClient _httpClient;
+
+    public ScorecardService(HttpClient httpClient)
+    {
+        _httpClient = httpClient;
+    }
     public IEnumerable<ScoreCard> GetScoreCards()
     {
         var retVal = new List<ScoreCard>();
@@ -54,5 +62,11 @@ public class ScorecardService : IScorecardService
         retVal.Add(new ScoreCard { MetricType = ScoreMetricType.Modified, Metrics = modifiedBaseMetrics, Name = "Modified base metrics" });
 
         return retVal;
+    }
+
+    public async Task<Vulnerabilities> GetCommonVulnerabilities()
+    {
+        return await _httpClient.GetFromJsonAsync<Vulnerabilities>("data/vulnerabilities.json") ?? new Vulnerabilities();
+        
     }
 }

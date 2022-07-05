@@ -2,7 +2,7 @@
     @foreach (var category in _categories)
     {
         <MudSelectItem Value="@category">
-            <MudChip Color="Color.Primary" @onclick="@(() => OnSelectedValueChanged(category))">@category</MudChip>
+            <MudChip Style="height: 24px;" Color="Color.Primary" @onclick="@(() => OnSelectedValueChanged(category))">@category</MudChip>
         </MudSelectItem>
     }
 </MudSelect>
@@ -12,9 +12,9 @@
     string _selectedCategory = "Uncategorised";
 
     [Parameter]
-    public EventCallback<string> OnIncognitoSelected { get; set; }
+    public EventCallback<string> OnItemSelected { get; set; }
 
     readonly IEnumerable<string> _categories = new[] {"Uncategorised","4.2 Configuration and Deployment Management Testing","4.3 Identity Management Testing","4.4 Authentication Testing","4.5 Authorization Testing","4.6 Session Management Testing","4.7 Input Validation Testing","4.8 Testing for Error Handling","4.9 Testing for Weak Cryptography","4.10 Business Logic Testing","4.11 Client-Side Testing","4.12 API Testing"};
     
-    private async void OnSelectedValueChanged(string selected) => await OnIncognitoSelected.InvokeAsync(selected);
+    private async void OnSelectedValueChanged(string selected) => await OnItemSelected.InvokeAsync(selected);
 }

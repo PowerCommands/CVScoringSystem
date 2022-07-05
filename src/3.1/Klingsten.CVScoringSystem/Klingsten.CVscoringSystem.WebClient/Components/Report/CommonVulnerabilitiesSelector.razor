@@ -1,0 +1,28 @@
+﻿@inject IScorecardService ScorecardService
+
+<MudSelect T="string" @bind-Value="@_selected" Label="Test category" Variant="Variant.Outlined" HelperText="Common Vulnerabillity" Placeholder="Common Vulnerabillity"  IconSize="Size.Large">
+    @foreach (var category in _categories)
+    {
+        <MudSelectItem Value="@category">
+            <MudChip Style="height: 24px;" Color="Color.Primary" @onclick="@(() => OnSelectedValueChanged(category))">@category</MudChip>
+        </MudSelectItem>
+    }
+</MudSelect>
+
+@code {
+
+    string _selected = "";
+
+    [Parameter]
+    public EventCallback<string> OnItemSelected { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await ScorecardService.GetCommonVulnerabilities();
+        _categories = response.Data;
+    }
+
+    IEnumerable<string> _categories = new List<string>();
+
+    private async void OnSelectedValueChanged(string selected) => await OnItemSelected.InvokeAsync(selected);
+}

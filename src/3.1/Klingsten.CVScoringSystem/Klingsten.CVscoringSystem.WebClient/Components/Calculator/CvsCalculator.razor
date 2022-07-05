@@ -19,6 +19,9 @@
     <MudTabPanel Text="Modified">
         <CvsScoreCard @ref="_cvsModifiedScoreCard" ScoreCard="_modifiedScoreCard" OnScoreCardCompleted="OnScoreCardCompleted"></CvsScoreCard>
     </MudTabPanel>
+    <MudTabPanel Text="Vulnerability Report" BadgeColor="Color.Info">
+        <AddReportDetail VectorString="@_vectorString"></AddReportDetail>
+    </MudTabPanel>
 </MudTabs>
 @if (_completed)
 {
@@ -26,7 +29,6 @@
         <MudToolBar Style="@($"background-color:{_theme.Palette.Primary }; color:{_theme.Palette.AppbarText }")">
             <MudText>Vector string: @_vectorString</MudText>
         </MudToolBar>
-        <AddReportDetail VectorString="@_vectorString"></AddReportDetail>
     </MudItem>
 }
 @code {

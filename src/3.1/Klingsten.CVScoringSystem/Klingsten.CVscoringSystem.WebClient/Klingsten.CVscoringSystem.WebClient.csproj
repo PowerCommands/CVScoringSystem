@@ -51,6 +51,7 @@
 
 	<ItemGroup>
 	  <Folder Include="Extensions\" />
+	  <Folder Include="wwwroot\data\" />
 	</ItemGroup>
 	
 	
