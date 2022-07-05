@@ -1,6 +1,8 @@
 ﻿@using Klingsten.CVScoringSystem.Shared.Models
 @using Klingsten.CVScoringSystem.Shared.Managers
 @inject IScorecardService ScorecardService
+@inject IStateService StateService
+
 <h3>Common Vulnerability Scoring System - Calculator</h3>
 <MudImage Src="images/cvss_web.png" Alt="CVSS logo" Elevation="25" Class="rounded-lg ma-4"/>
 
@@ -78,9 +80,9 @@
         _temporalScoreCard.Score = result.ScoreDetail.TemporalScore;
         _environmentScoreCard.Score = result.ScoreDetail.EnvironmentScore;
         _modifiedScoreCard.Score = result.ScoreDetail.EnvironmentScore;
-
+        StateService.CurrentScore = result.ScoreDetail.EnvironmentScore;
+        
         _completed = true;
-
         StateHasChanged();
     }
 

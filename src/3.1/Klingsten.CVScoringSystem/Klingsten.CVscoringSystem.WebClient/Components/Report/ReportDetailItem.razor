@@ -1,22 +1,32 @@
 ﻿@using Klingsten.CVScoringSystem.Shared.Managers
+@using Klingsten.CVscoringSystem.WebClient.Extensions
 @inject IScorecardService ScorecardService
 
+<h2>@Vulnerability.TestCategory</h2>
 <h2>@Vulnerability.Name</h2>
-<h3>@Vulnerability.Description</h3>
+<p>@Vulnerability.Description</p>
 <p>
     <b>Base score:</b> @_scoreResult.ScoreDetail.BaseScore<br />
     <b>Temporal score:</b> @_scoreResult.ScoreDetail.TemporalScore<br />
     <b>EnvironmentScore:</b> @_scoreResult.ScoreDetail.EnvironmentScore<br />
 </p>
 <p>
-    <b>Overall rating:</b> @_rating<br />
+    <h2>Overall rating</h2>
+    <ScoreChip SeverityColor="@_scoreResult.EnviromentalSeverityRating.ToMudBlazorColor()" Score="@_score"></ScoreChip>
+    <h2>Base rating was</h2>
+    <ScoreChip SeverityColor="@_scoreResult.BaseSeverityRating.ToMudBlazorColor()" Score="@_basicScore"></ScoreChip>
 </p>
+<p>
+    <b>CVSS 3.1 vector:</b> @Vulnerability.VectorString<br />
+</p>
+<br/>
 
 @code {
 
-    ScoreResult _scoreResult = new();
+    ScoreResult _scoreResult = new() {BaseSeverityRating = SeverityRating.None, EnviromentalSeverityRating = SeverityRating.None, ScoreDetail = new ScoreDetail {BaseScore = 0, EnvironmentScore = 0}};
     bool _isLoading;
-    string _rating = "";
+    string _score = "";
+    string _basicScore = "";
 
     [Parameter]
     public Vulnerability Vulnerability { get; set; } = new() { Name = "-", Description = "-" };
@@ -26,8 +36,9 @@
         var scoreCards = ScorecardService.GetScoreCards().ToList();
         var calculator = new ScoreCalculatorManager(scoreCards);
         _scoreResult = calculator.GetScoreResult(Vulnerability.VectorString);
-
-        _rating = $"{_scoreResult.EnviromentalSeverityRating}";
+        _basicScore = _scoreResult.ScoreDetail.BaseScore.ToSeverityRatingDisplayText();
+        _score = _scoreResult.ScoreDetail.EnvironmentScore.ToSeverityRatingDisplayText();
+        StateHasChanged();
     }
 
 }

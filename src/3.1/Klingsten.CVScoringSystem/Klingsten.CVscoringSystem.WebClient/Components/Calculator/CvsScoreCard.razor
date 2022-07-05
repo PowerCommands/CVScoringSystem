@@ -1,4 +1,5 @@
 ﻿@using Klingsten.CVScoringSystem.Shared.Managers
+@using Klingsten.CVscoringSystem.WebClient.Extensions
 <MudGrid>
     <MudItem xl="12" lg="12" xs="12" xxl="12" md="12" sm="12">
         <MudToolBar Style="@($"background-color:{_theme.Palette.Primary }; color:{_theme.Palette.AppbarText }")">
@@ -6,7 +7,7 @@
             <MudSpacer/>
             @if (_completed)
             {
-                <MudChip Text="Score" Color="Color.Error">@ScoreCard.Score</MudChip>
+                <ScoreChip SeverityColor="@ScoreCard.Score.ToSeverityRating().ToMudBlazorColor()" Score="@ScoreCard.Score.ToSeverityRatingDisplayText()"></ScoreChip>
             }
         </MudToolBar>
     </MudItem>

@@ -2,9 +2,10 @@
 
 <h2>Report</h2>
 
-@foreach (var item in _report.Vulnerabilities)
+@foreach (var item in _report.Vulnerabilities.OrderByDescending(v => v.Score))
 {
     <p><ReportDetailItem Vulnerability="item"></ReportDetailItem></p>
+    <MudDivider DividerType="DividerType.Middle" Class="my-6"/>
 }
 
 <h3>Note that CVSS Measures Severity, not Risk</h3>

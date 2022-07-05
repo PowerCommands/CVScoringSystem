@@ -30,21 +30,10 @@ public class ScoreCalculatorManager
         _environmentalScoreCard = environmentalScoreCard;
         _modifiedScoreCard = modifiedScoreCard;
     }
-    public SeverityRating GetSeverityRating(double score)
-    {
-        if (score == 0) return SeverityRating.None;
-        if (score > 0.1 && score < 3.9) return SeverityRating.Low;
-        if (score > 4.0 && score < 6.9) return SeverityRating.Medium;
-        if (score > 7.0 && score < 8.9) return SeverityRating.High;
-        if (score > 9.0) return SeverityRating.Critical;
-        
-        return SeverityRating.None;
-    }
-
     public ScoreResult GetScoreResult(string baseVector)
     {
         var scoreDetail = GetScoreDetails(baseVector);
-        var retVal = new ScoreResult(scoreDetail, GetSeverityRating(scoreDetail.BaseScore), GetSeverityRating(scoreDetail.TemporalScore), GetSeverityRating(scoreDetail.EnvironmentScore));
+        var retVal = new ScoreResult(scoreDetail, scoreDetail.BaseScore.ToSeverityRating(), scoreDetail.TemporalScore.ToSeverityRating(), scoreDetail.EnvironmentScore.ToSeverityRating());
         return retVal;
     }
 

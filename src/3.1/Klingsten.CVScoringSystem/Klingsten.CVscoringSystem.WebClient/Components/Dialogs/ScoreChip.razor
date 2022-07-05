@@ -1,0 +1,10 @@
+﻿<MudChip Color="@SeverityColor">@Score</MudChip>
+
+@code {
+
+    [Parameter]
+    public string Score { get; set; } = "0";
+    
+    [Parameter]
+    public Color SeverityColor { get; set; }
+}

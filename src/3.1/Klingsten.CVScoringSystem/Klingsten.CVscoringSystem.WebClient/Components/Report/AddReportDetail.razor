@@ -1,6 +1,9 @@
 ﻿@inject IReportService ReportService
+@inject IStateService StateService
 
 <h3>Add vulnerability to report</h3>
+<TestCategorySelector OnIncognitoSelected="OnTestCategorySelected"></TestCategorySelector>
+
 <MudTextField @bind-Value="@_name" Label="Name" Variant="Variant.Text" HelperText="Name"></MudTextField>
 <MudTextField @bind-Value="@_description" Label="Description" Variant="Variant.Text" HelperText="Description"></MudTextField>
 <MudTextField @bind-Value="@VectorString" Label="VectorString" ReadOnly="true" Variant="Variant.Text" />
@@ -12,6 +15,7 @@
 
     string _name = "";
     string _description = "";
+    string _category = "Uncategorised";
     
     AlertDialog? _alertDialog;
 
@@ -20,7 +24,7 @@
 
     private async void OnClickAddToReport()
     {
-        var vulnerability = new Vulnerability {Description = _description, Name = _name, VectorString = VectorString};
+        var vulnerability = new Vulnerability {Description = _description, Name = _name, VectorString = VectorString, TestCategory = _category, Score = StateService.CurrentScore };
         var result = await ReportService.Add(vulnerability);
         if (result)
         {
@@ -34,5 +38,7 @@
         }
         StateHasChanged();
     }
+
+    private void OnTestCategorySelected(string category) => _category = category;
 
 }
