@@ -1,0 +1,29 @@
+﻿@inherits LayoutComponentBase
+@inject IEventService EventService
+
+<MudThemeProvider @bind-IsDarkMode="@_preferences.IsDarkMode" Theme="_theme" />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudMainContent>
+        <MudContainer MaxWidth="MaxWidth.ExtraExtraLarge">
+            @Body
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>
+
+@code {
+    readonly MudTheme _theme = new();
+    readonly Preferences _preferences = new();
+
+    protected override void OnInitialized()
+    {        
+        EventService.UserPreferencesChanged += preferences =>
+        {
+            _preferences.IsDarkMode = preferences.IsDarkMode;
+            _preferences.ShowMetricDecription = preferences.ShowMetricDecription;
+            StateHasChanged();
+        };
+    }
+}

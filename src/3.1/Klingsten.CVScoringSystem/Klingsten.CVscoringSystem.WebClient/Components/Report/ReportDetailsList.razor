@@ -1,0 +1,47 @@
+﻿@using Klingsten.CVscoringSystem.WebClient.Extensions
+@inject IReportService ReportService
+@inject IEventService EventService
+
+<h3>Report items</h3>
+<MudTable Items="@_report.Vulnerabilities" Hover="true" Breakpoint="Breakpoint.Sm">
+    <HeaderContent>
+        <MudTh>Name</MudTh>
+        <MudTh>Score</MudTh>
+        <MudTh>
+            <MudButton Variant="Variant.Filled" Class="ma-4" EndIcon="@Icons.Material.Filled.Clear" Color="Color.Primary" OnClick="ClearReport">Clear report</MudButton>
+        </MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Name">@context.Name</MudTd>
+        <MudTd DataLabel="Score"><ScoreChip SeverityColor="@context.Score.ToSeverityRating().ToMudBlazorColor()" Score="@context.Score.ToString()"></ScoreChip></MudTd>
+        <MudTd><MudIconButton Icon="@Icons.Material.Outlined.Clear" Color="Color.Secondary" @onclick="@(() => RemoveItem(@context.Name))" /></MudTd>
+    </RowTemplate>
+</MudTable>
+<MudNavLink Href="/report" Match="NavLinkMatch.Prefix" Icon="@Icons.Custom.FileFormats.FileDocument">View Report</MudNavLink>
+<MudNavLink Href="/reportmd" Match="NavLinkMatch.Prefix" Icon="@Icons.Custom.FileFormats.FileCode">View Report MD format</MudNavLink>
+
+@code {
+    VulnerabilityReport _report = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        _report = await ReportService.Get();
+        EventService.VulnerabillityAddedToReport += EventServiceOnVulnerabillityAddedToReport;
+    }
+
+    private async void EventServiceOnVulnerabillityAddedToReport(Vulnerability vulnerability)
+    {
+        _report = await ReportService.Get();
+        StateHasChanged();
+    }
+
+    private async Task RemoveItem(string name)
+    {
+        await ReportService.Remove(name);
+        _report = await ReportService.Get();
+        StateHasChanged();
+    }
+
+    private async Task ClearReport() => await ReportService.Clear();
+
+}

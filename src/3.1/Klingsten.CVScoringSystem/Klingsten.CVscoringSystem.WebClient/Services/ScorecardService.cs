@@ -64,9 +64,5 @@ public class ScorecardService : IScorecardService
         return retVal;
     }
 
-    public async Task<Vulnerabilities> GetCommonVulnerabilities()
-    {
-        return await _httpClient.GetFromJsonAsync<Vulnerabilities>("data/vulnerabilities.json") ?? new Vulnerabilities();
-        
-    }
+    public async Task<Vulnerabilities> GetCommonVulnerabilities() => await _httpClient.GetFromJsonAsync<Vulnerabilities>("data/vulnerabilities.json") ?? new Vulnerabilities();
 }

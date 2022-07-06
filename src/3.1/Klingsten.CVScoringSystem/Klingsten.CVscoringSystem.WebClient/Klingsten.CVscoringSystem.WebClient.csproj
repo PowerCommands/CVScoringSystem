@@ -23,6 +23,7 @@
 	  <_ContentIncludedByDefault Remove="Components\Report\ReportDetailItem.razor" />
 	  <_ContentIncludedByDefault Remove="Components\Report\TestCategorySelector.razor" />
 	  <_ContentIncludedByDefault Remove="Pages\Report.razor" />
+	  <_ContentIncludedByDefault Remove="Pages\ReportMd.razor" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -52,6 +53,10 @@
 	<ItemGroup>
 	  <Folder Include="Extensions\" />
 	  <Folder Include="wwwroot\data\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <UpToDateCheckInput Remove="Pages\ReportMd.razor" />
 	</ItemGroup>
 	
 	

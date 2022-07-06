@@ -1,0 +1,47 @@
+﻿@using Klingsten.CVScoringSystem.Shared.Managers
+@inject IScorecardService ScorecardService
+
+# @Vulnerability.TestCategory<br/>
+## @Vulnerability.Name<br/>
+## @Vulnerability.Description<br/><br/>
+
+**Base score:** @_scoreResult.ScoreDetail.BaseScore<br/>
+**Temporal score:** @_scoreResult.ScoreDetail.TemporalScore<br/>
+**Environment score:** @_scoreResult.ScoreDetail.EnvironmentScore<br/><br/>
+
+# Overall rating<br/>
+::: mermaid<br/>
+graph TD<br/>
+A[@_scoreResult.EnviromentalSeverityRating @_score]<br/> 
+:::<br/><br/>
+
+# Base rating<br/>
+::: mermaid<br/>
+graph TD<br/>
+A[@_scoreResult.BaseSeverityRating @_score]<br/>
+:::<br/><br/>
+
+### **CVSS 3.1 vector**<br/>
+@Vulnerability.VectorString
+
+@code {
+
+    ScoreResult _scoreResult = new() {BaseSeverityRating = SeverityRating.None, EnviromentalSeverityRating = SeverityRating.None, ScoreDetail = new ScoreDetail {BaseScore = 0, EnvironmentScore = 0}};
+    bool _isLoading;
+    string _score = "";
+    string _basicScore = "";
+
+    [Parameter]
+    public Vulnerability Vulnerability { get; set; } = new() { Name = "-", Description = "-" };
+
+    protected override void OnInitialized()
+    {
+        var scoreCards = ScorecardService.GetScoreCards().ToList();
+        var calculator = new ScoreCalculatorManager(scoreCards);
+        _scoreResult = calculator.GetScoreResult(Vulnerability.VectorString);
+        _basicScore = $"{_scoreResult.ScoreDetail.BaseScore}";
+        _score = $"{_scoreResult.ScoreDetail.EnvironmentScore}";
+        StateHasChanged();
+    }
+
+}

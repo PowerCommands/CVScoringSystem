@@ -1,14 +1,15 @@
 ﻿@inject IReportService ReportService
 @inject IStateService StateService
+@inject IEventService EventService
 
-<h3>Add vulnerability to report</h3>
+<h3>Add current vulnerability to report</h3>
 <TestCategorySelector OnItemSelected="OnTestCategorySelected"></TestCategorySelector>
 <CommonVulnerabilitiesSelector OnItemSelected="OnVulnerabillitySelected"></CommonVulnerabilitiesSelector>
 
 <MudTextField @bind-Value="@_name" Label="Name" Variant="Variant.Text" HelperText="Name"></MudTextField>
 <MudTextField @bind-Value="@_description" Label="Description" Variant="Variant.Text" HelperText="Description"></MudTextField>
 <MudTextField @bind-Value="@VectorString" Label="VectorString" ReadOnly="true" Variant="Variant.Text" />
-<MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Create" Color="Color.Primary" OnClick="OnClickAddToReport">Add</MudButton>
+<MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Create" Color="Color.Primary" OnClick="OnClickAddToReport" Disabled="@_buttonDisabled">Add</MudButton>
 <AlertDialog @ref="_alertDialog"></AlertDialog>
 
 
@@ -17,11 +18,14 @@
     string _name = "";
     string _description = "";
     string _category = "Uncategorised";
+    bool _buttonDisabled = true;
     
     AlertDialog? _alertDialog;
 
     [Parameter]
     public string VectorString { get; set; } = "";
+
+    protected override void OnInitialized() => EventService.ScoreCardCompleted += _ => _buttonDisabled = false;
 
     private async void OnClickAddToReport()
     {
@@ -32,6 +36,7 @@
             _alertDialog?.ShowSuccess($"{nameof(Vulnerability)} added to report.");
             _name = "";
             _description = "";
+            EventService.OnVulnerabillityAddedToReport(vulnerability);
         }
         else
         {

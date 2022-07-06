@@ -2,22 +2,24 @@
 @using Klingsten.CVscoringSystem.WebClient.Extensions
 @inject IScorecardService ScorecardService
 
-<h2>@Vulnerability.TestCategory</h2>
-<h2>@Vulnerability.Name</h2>
-<p>@Vulnerability.Description</p>
+<h2>@Vulnerability.TestCategory.Replace("#","")</h2>
+<h2>@Vulnerability.Name.Replace("#","")</h2>
+<p>@Vulnerability.Description.Replace("#","")</p><br/>
 <p>
     <b>Base score:</b> @_scoreResult.ScoreDetail.BaseScore<br />
     <b>Temporal score:</b> @_scoreResult.ScoreDetail.TemporalScore<br />
-    <b>EnvironmentScore:</b> @_scoreResult.ScoreDetail.EnvironmentScore<br />
+    <b>Environment score:</b> @_scoreResult.ScoreDetail.EnvironmentScore<br />
 </p>
+<br/>
 <p>
     <h2>Overall rating</h2>
     <ScoreChip SeverityColor="@_scoreResult.EnviromentalSeverityRating.ToMudBlazorColor()" Score="@_score"></ScoreChip>
-    <h2>Base rating was</h2>
+    <h2>Base rating </h2>
     <ScoreChip SeverityColor="@_scoreResult.BaseSeverityRating.ToMudBlazorColor()" Score="@_basicScore"></ScoreChip>
 </p>
 <p>
-    <b>CVSS 3.1 vector:</b> @Vulnerability.VectorString<br />
+    <b>CVSS 3.1 vector</b><br/>
+    @Vulnerability.VectorString<br />
 </p>
 <br/>
 

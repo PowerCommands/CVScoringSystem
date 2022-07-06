@@ -1,14 +1,13 @@
 ﻿@inject IReportService ReportService
 
-<h2>Report</h2>
+# Report<br/><br/>
 
 @foreach (var item in _report.Vulnerabilities.OrderByDescending(v => v.Score))
 {
-    <p><ReportDetailItem Vulnerability="item"></ReportDetailItem></p>
-    <MudDivider DividerType="DividerType.Middle" Class="my-6" />
+    <ReportDetailItemMarkdown Vulnerability="item"></ReportDetailItemMarkdown>
 }
-<h3>Note that CVSS Measures Severity, not Risk</h3>
-
+<br/><br/>
+### Note that CVSS Measures Severity, not Risk
 
 @code {
 
@@ -18,4 +17,5 @@
     {
         _report = await ReportService.Get();
     }
+
 }

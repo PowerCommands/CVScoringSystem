@@ -2,6 +2,7 @@
 @using Klingsten.CVScoringSystem.Shared.Managers
 @inject IScorecardService ScorecardService
 @inject IStateService StateService
+@inject IEventService EventService
 
 <h3>Common Vulnerability Scoring System - Calculator</h3>
 <MudImage Src="images/cvss_web.png" Alt="CVSS logo" Elevation="25" Class="rounded-lg ma-4"/>
@@ -20,7 +21,8 @@
         <CvsScoreCard @ref="_cvsModifiedScoreCard" ScoreCard="_modifiedScoreCard" OnScoreCardCompleted="OnScoreCardCompleted"></CvsScoreCard>
     </MudTabPanel>
     <MudTabPanel Text="Vulnerability Report" BadgeColor="Color.Info">
-        <AddReportDetail VectorString="@_vectorString"></AddReportDetail>
+        <AddReportDetail VectorString="@_vectorString"></AddReportDetail><br/>
+        <ReportDetailsList></ReportDetailsList>
     </MudTabPanel>
 </MudTabs>
 @if (_completed)
@@ -83,7 +85,7 @@
         _environmentScoreCard.Score = result.ScoreDetail.EnvironmentScore;
         _modifiedScoreCard.Score = result.ScoreDetail.EnvironmentScore;
         StateService.CurrentScore = result.ScoreDetail.EnvironmentScore;
-        
+        EventService.OnScoreCardCompleted(scoreCard);
         _completed = true;
         StateHasChanged();
     }
